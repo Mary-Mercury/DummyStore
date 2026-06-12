@@ -4,8 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.example.dummystore.ui.theme.viewmodels.MainViewModel
 import com.example.dummystore.ui.theme.screens.navigation.BottomBar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -15,10 +13,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            val mainViewModel: MainViewModel = hiltViewModel()
-            BottomBar(
-                mainViewModel = mainViewModel
-            )
+            BottomBar()
         }
     }
 }

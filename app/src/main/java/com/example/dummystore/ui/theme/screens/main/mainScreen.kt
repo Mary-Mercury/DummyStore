@@ -9,19 +9,19 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.dummystore.data.ApiResult
 import com.example.dummystore.data.Products
 import com.example.dummystore.ui.theme.screens.ErrorScreen
 import com.example.dummystore.ui.theme.screens.LoadingScreen
-import com.example.dummystore.ui.theme.viewmodels.MainViewModel
 import com.example.dummystore.ui.theme.screens.ProductCard
 
 @Composable
 fun ShowProducts(
     modifier: Modifier,
     navController: NavController,
-    viewmodel: MainViewModel
+    viewmodel: ProductsViewModel
 ) {
     val productItems by viewmodel.products.collectAsState()
 

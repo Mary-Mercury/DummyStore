@@ -11,19 +11,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.dummystore.data.ApiResult
 import com.example.dummystore.data.Products
 import com.example.dummystore.ui.theme.DummyStoreTheme
 import com.example.dummystore.ui.theme.screens.ErrorScreen
 import com.example.dummystore.ui.theme.screens.LoadingScreen
-import com.example.dummystore.ui.theme.viewmodels.MainViewModel
 
 @Composable
 fun CategoriesScreen(
     modifier: Modifier,
     navController: NavController,
-    viewmodel: MainViewModel
+    viewmodel: CategoriesViewModel
 ) {
     LaunchedEffect(key1 = Unit) { viewmodel.getCategories() }
 
@@ -51,7 +51,6 @@ fun CategoriesScreen(
                         category = it,
                         onClick = {
                             navController.navigate("productsByCategory/${it}")
-
                         }
                     )
                 }

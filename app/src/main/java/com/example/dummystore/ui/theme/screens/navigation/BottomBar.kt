@@ -15,12 +15,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.example.dummystore.ui.theme.viewmodels.MainViewModel
 
 @Composable
 fun BottomBar(
-    modifier: Modifier = Modifier,
-    mainViewModel: MainViewModel
+    modifier: Modifier = Modifier
 ) {
 
     val navController = rememberNavController()
@@ -55,8 +53,7 @@ fun BottomBar(
         MainNavigation(
             navController,
             startDestination,
-            Modifier.padding(it),
-            mainViewModel
+            Modifier.padding(it)
         )
     }
 }

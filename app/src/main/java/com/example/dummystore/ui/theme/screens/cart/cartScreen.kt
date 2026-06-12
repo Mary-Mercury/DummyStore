@@ -1,4 +1,4 @@
-package com.example.dummystore.ui.theme.screens
+package com.example.dummystore.ui.theme.screens.cart
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,15 +8,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.dummystore.ui.theme.viewmodels.MainViewModel
 
 @Composable
 fun CartScreen(
     navController: NavController,
-    viewModel: MainViewModel,
-    modifier: Modifier
-) {
+    modifier: Modifier,
+    viewModel: CartViewModel = hiltViewModel(),
+    ) {
     Column(
         modifier = modifier.fillMaxSize().padding(),
         verticalArrangement = Arrangement.Center,
