@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.example.dummystore.ui.theme.screens.navigation.BottomBar
+import com.example.dummystore.ui.theme.DummyStoreTheme
+import com.example.dummystore.ui.screens.navigation.BottomBar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -13,7 +14,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            BottomBar()
+            DummyStoreTheme {
+                BottomBar()
+            }
         }
     }
 }
