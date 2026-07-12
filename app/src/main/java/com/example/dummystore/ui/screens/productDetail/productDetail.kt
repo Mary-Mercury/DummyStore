@@ -1,4 +1,4 @@
-package com.example.dummystore.ui.theme.screens
+package com.example.dummystore.ui.screens.productDetail
 
 import android.util.Log
 import androidx.compose.foundation.layout.Column
@@ -47,14 +47,16 @@ import com.example.dummystore.data.ApiResult
 import com.example.dummystore.data.Dimensions
 import com.example.dummystore.data.Product
 import com.example.dummystore.data.Review
+import com.example.dummystore.ui.screens.ErrorScreen
+import com.example.dummystore.ui.screens.LoadingScreen
+import com.example.dummystore.ui.screens.main.ProductsViewModel
 import com.example.dummystore.ui.theme.DummyStoreTheme
-import com.example.dummystore.ui.theme.viewmodels.MainViewModel
 
 @Composable
 fun ProductDetail(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     productId: Int,
-    viewModel: MainViewModel,
+    viewModel: ProductDetailViewModel,
     navController: NavController
 ) {
     val product by viewModel.selectedProduct.collectAsState()

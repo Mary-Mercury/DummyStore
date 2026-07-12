@@ -1,4 +1,4 @@
-package com.example.dummystore.ui.theme.screens.navigation
+package com.example.dummystore.ui.screens.navigation
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -14,13 +14,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.rememberNavController
-import com.example.dummystore.ui.theme.viewmodels.MainViewModel
 
 @Composable
 fun BottomBar(
-    modifier: Modifier = Modifier,
-    mainViewModel: MainViewModel
+    modifier: Modifier = Modifier
 ) {
 
     val navController = rememberNavController()
@@ -37,7 +36,13 @@ fun BottomBar(
                     NavigationBarItem(
                         selected = selectedDestination == index,
                         onClick = {
-                            navController.navigate(route = destinations.route)
+                            navController.navigate(route = destinations.route) {
+                                popUpTo(navController.graph.findStartDestination().id) {
+                                    saveState = true
+                                }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
                             selectedDestination = index
                         },
                         icon = {
@@ -52,11 +57,10 @@ fun BottomBar(
             }
         }
     ) {
-        MainNavigation(
+        NestedNavigation(
             navController,
             startDestination,
-            Modifier.padding(it),
-            mainViewModel
+            Modifier.padding(it)
         )
     }
 }

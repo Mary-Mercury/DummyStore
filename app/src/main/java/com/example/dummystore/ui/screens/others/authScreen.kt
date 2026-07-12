@@ -1,4 +1,4 @@
-package com.example.dummystore.ui.theme.screens.others
+package com.example.dummystore.ui.screens.others
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

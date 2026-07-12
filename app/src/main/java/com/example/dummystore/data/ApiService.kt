@@ -10,7 +10,6 @@ import retrofit2.http.Path
 interface ApiService {
     @GET("products?limit=0")
     suspend fun getAllProducts(): Products
-
     @GET("products/{id}")
     suspend fun getProductById(@Path("id") id: Int): Product
 

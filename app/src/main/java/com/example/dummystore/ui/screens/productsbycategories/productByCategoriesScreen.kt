@@ -1,4 +1,4 @@
-package com.example.dummystore.ui.theme.screens.categories
+package com.example.dummystore.ui.screens.productsbycategories
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -13,16 +13,16 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.dummystore.data.ApiResult
 import com.example.dummystore.data.Products
-import com.example.dummystore.ui.theme.screens.ErrorScreen
-import com.example.dummystore.ui.theme.screens.LoadingScreen
-import com.example.dummystore.ui.theme.viewmodels.MainViewModel
-import com.example.dummystore.ui.theme.screens.ProductCard
+import com.example.dummystore.ui.screens.ErrorScreen
+import com.example.dummystore.ui.screens.LoadingScreen
+import com.example.dummystore.ui.screens.ProductCard
+import com.example.dummystore.ui.screens.categories.CategoriesViewModel
 
 @Composable
 fun ProductByCategoriesScreen(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     category: String,
-    viewmodel: MainViewModel,
+    viewmodel: CategoriesViewModel,
     navController: NavController
 ) {
     LaunchedEffect(key1 = Unit) { viewmodel.getProductsByCategory(category) }
@@ -32,7 +32,9 @@ fun ProductByCategoriesScreen(
     when (productItems) {
         is ApiResult.Error -> {
             val message = (productItems as ApiResult.Error).message
-            ErrorScreen(modifier,message.toString()) { viewmodel.getProducts() }
+            ErrorScreen(modifier, message.toString()) {
+                viewmodel.getProductsByCategory(category)
+            }
         }
         ApiResult.Loading -> {
             LoadingScreen(modifier)

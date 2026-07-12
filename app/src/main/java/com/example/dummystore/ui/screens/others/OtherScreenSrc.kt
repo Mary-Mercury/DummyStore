@@ -1,4 +1,4 @@
-package com.example.dummystore.ui.theme.screens.others
+package com.example.dummystore.ui.screens.others
 
 enum class OtherScreenSrc(val title: String) {
     FAVORITE(title = "Избранное"),
