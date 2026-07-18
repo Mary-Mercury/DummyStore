@@ -83,27 +83,12 @@ fun StartScreen(
                         navController.navigate("productDetail/$it")
                     }
                 )
-            }
-        }
-        when (uiState) {
-            is ApiResult.Error -> {
-            }
-
-            ApiResult.Loading -> {
-            }
-
-            is ApiResult.Success<*> -> {
                 Column {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 10.dp, horizontal = 5.dp)
+                        modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp, horizontal = 5.dp)
                     ) {
-                        Text(
-                            text = "Our articles!",
-                            fontWeight = FontWeight.Bold
-                        )
+                        Text(text = "Our articles!", fontWeight = FontWeight.Bold)
                     }
                     LazyRow(
                         modifier = Modifier.fillMaxWidth()
@@ -111,9 +96,7 @@ fun StartScreen(
                         items(items = articles) { article ->
                             ArticleCard(
                                 article = article,
-                                onClick = {
-                                    navController.navigate("article_screen/${article.id}")
-                                }
+                                onClick = { navController.navigate("article_screen/${article.id}") }
                             )
                         }
                     }
