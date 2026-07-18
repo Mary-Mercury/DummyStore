@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.dummystore.data.ApiResult
 import com.example.dummystore.data.Dimensions
+import com.example.dummystore.data.MainUiState
 import com.example.dummystore.data.Meta
 import com.example.dummystore.data.Product
 import com.example.dummystore.data.Products
@@ -41,10 +42,8 @@ fun StartScreen(
     viewmodel: ProductsViewModel,
     onClickCatalog: () -> Unit
 ) {
-    val prodOfTheDay by viewmodel.prodOfTheDay.collectAsState()
-    val bestSellers by viewmodel.bestSellers.collectAsState()
-    val newProducts by viewmodel.newProducts.collectAsState()
     val articles by viewmodel.articles.collectAsState()
+    val uiState by viewmodel.uiState.collectAsState()
 
     Column(
         modifier = modifier
@@ -52,17 +51,33 @@ fun StartScreen(
             .padding(horizontal = 5.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        when (prodOfTheDay) {
+        when(uiState) {
             is ApiResult.Error -> {
-            }
 
+            }
             ApiResult.Loading -> {
-            }
 
+            }
             is ApiResult.Success<*> -> {
-                val products = (prodOfTheDay as ApiResult.Success<Products>).data.products
+                val godsOfTheDay = (uiState as ApiResult.Success<MainUiState>).data.godsOfTheDay.products
+                val popularGods = (uiState as ApiResult.Success<MainUiState>).data.popularGods.products
+                val newGods = (uiState as ApiResult.Success<MainUiState>).data.newGods.products
                 PartOfScreen(
-                    products = products,
+                    products = godsOfTheDay,
+                    type = "Products of the Day",
+                    onClick = {
+                        navController.navigate("productDetail/$it")
+                    }
+                )
+                PartOfScreen(
+                    products = popularGods,
+                    type = "Products of the Day",
+                    onClick = {
+                        navController.navigate("productDetail/$it")
+                    }
+                )
+                PartOfScreen(
+                    products = newGods,
                     type = "Products of the Day",
                     onClick = {
                         navController.navigate("productDetail/$it")
@@ -70,44 +85,7 @@ fun StartScreen(
                 )
             }
         }
-        when (bestSellers) {
-            is ApiResult.Error -> {
-            }
-
-            ApiResult.Loading -> {
-            }
-
-            is ApiResult.Success<*> -> {
-                val products = (bestSellers as ApiResult.Success<Products>).data.products
-                PartOfScreen(
-                    products = products,
-                    type = "Popular products",
-                    onClick = {
-                        navController.navigate("productDetail/$it")
-                    }
-                )
-            }
-        }
-        when (newProducts) {
-            is ApiResult.Error -> {
-            }
-
-            ApiResult.Loading -> {
-            }
-
-            is ApiResult.Success<*> -> {
-                val products = (newProducts as ApiResult.Success<Products>).data.products
-                PartOfScreen(
-                    products = products,
-                    type = "New stock in!",
-                    onClick = {
-                        navController.navigate("productDetail/$it")
-                    }
-                )
-            }
-        }
-
-        when (newProducts) {
+        when (uiState) {
             is ApiResult.Error -> {
             }
 
