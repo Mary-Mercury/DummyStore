@@ -1,5 +1,6 @@
 package com.example.dummystore.ui.screens.main
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,6 +12,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -53,10 +55,16 @@ fun StartScreen(
     ) {
         when(uiState) {
             is ApiResult.Error -> {
-
+                Text(text = "Error")
             }
             ApiResult.Loading -> {
-
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    CircularProgressIndicator()
+                }
             }
             is ApiResult.Success<*> -> {
                 val godsOfTheDay = (uiState as ApiResult.Success<MainUiState>).data.godsOfTheDay.products
