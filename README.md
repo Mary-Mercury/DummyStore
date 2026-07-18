@@ -37,16 +37,14 @@
 
 # Развитие приложения
 
-В текущий момент идет работа над реализацией авторизации в приложении.
+В текущий момент идет доработка интерфейса, а также работа над реализацией авторизации в приложении.
 
 # Некоторые скриншоты приложения
 
-<img width="19%" height="auto" alt="image" src="https://github.com/user-attachments/assets/e326c7d5-900e-4a90-a6d3-aeeeba292a16" />
+<img width="19%" height="auto" alt="image" src="https://github.com/user-attachments/assets/6122cece-86f0-4330-b4fc-fa1befb7ee71" />
 
-<img width="19%" height="auto" alt="image" src="https://github.com/user-attachments/assets/c9e7f221-ab14-4fae-8453-4dbc58d134ea" />
+<img width="19%" height="auto" alt="image" src="https://github.com/user-attachments/assets/1f2d024d-5330-472f-9dc5-770dc76a6253" />
 
-<img width="19%" height="auto" alt="image" src="https://github.com/user-attachments/assets/d8ed3abf-05fb-4360-aee9-ada4dbd42a10" />
+<img width="19%" height="auto" alt="image" src="https://github.com/user-attachments/assets/e4efd6fe-0b3f-49f5-af06-9483549dbee6" />
 
-<img width="19%" height="auto" alt="image" src="https://github.com/user-attachments/assets/c8ac41c1-0187-42d8-a737-68a5d4156998" />
-
-<img width="19%" height="auto" alt="image" src="https://github.com/user-attachments/assets/cab9620c-979e-4f70-be2e-7e21c9d80232" />
+<img width="19%" height="auto" alt="image" src="https://github.com/user-attachments/assets/32c4f3ae-a1b4-4e7d-98de-e05da5108f40" />
