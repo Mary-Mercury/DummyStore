@@ -36,7 +36,7 @@ fun CategoriesScreen(
             val selectedCategories = (categories as ApiResult.Success<List<String>>).data
             LazyVerticalGrid(
                 columns = GridCells.Adaptive(minSize = 150.dp),
-                modifier = modifier.padding().padding(horizontal = 4.dp)
+                modifier = Modifier.padding().padding(horizontal = 4.dp)
             ) {
                 items(
                     items = selectedCategories

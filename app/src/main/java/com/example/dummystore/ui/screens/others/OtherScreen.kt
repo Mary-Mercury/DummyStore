@@ -29,7 +29,7 @@ import androidx.navigation.NavController
 @Composable
 fun OtherScreen(
     navController: NavController,
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier.fillMaxSize().padding().padding(15.dp),
@@ -60,13 +60,13 @@ fun AuthCard(
                 textAlign = TextAlign.Justify,
                 minLines = 2,
                 fontSize = 20.sp,
-                text = "Получайте бонусы, сохраняйте заказы."
+                text = "Earn rewards, save your orders."
             )
             Button(
                 modifier = Modifier.fillMaxWidth().padding(top = 10.dp),
                 onClick = onClick
             ) {
-                Text(text = "Войти")
+                Text(text = "Login")
             }
         }
     }

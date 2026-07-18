@@ -34,7 +34,7 @@ fun ArticleCard(
             Image(
                 painter = painterResource(article.image),
                 contentDescription = null,
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.FillWidth,
                 modifier = Modifier.fillMaxWidth()
             )
             Text(
@@ -66,7 +66,7 @@ fun ShowArticleCard() {
                 title = "Android vs iOS. Which is better?",
                 description = "We compared the Android and iOS operating systems and highlighted their key features.",
                 content = "",
-                image = R.drawable.placeholder_400x300
+                image = R.drawable.wifi_problems
             )
         )
     }
