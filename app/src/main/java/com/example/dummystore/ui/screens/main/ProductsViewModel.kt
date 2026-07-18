@@ -8,6 +8,7 @@ import com.example.dummystore.R
 import com.example.dummystore.data.ApiResult
 import com.example.dummystore.data.Article
 import com.example.dummystore.data.ArticlesRepository
+import com.example.dummystore.data.MainUiState
 import com.example.dummystore.data.Product
 import com.example.dummystore.data.ProductRepository
 import com.example.dummystore.data.Products
@@ -27,85 +28,15 @@ class ProductsViewModel @Inject constructor(
     private val productRepository: ProductRepository,
     private val articleRepository: ArticlesRepository
 ) : ViewModel() {
+
+    private val _uiSate = MutableStateFlow<ApiResult<MainUiState>>(ApiResult.Loading)
+    val uiState: StateFlow<ApiResult<MainUiState>> = _uiSate
+
     private val _products = MutableStateFlow<ApiResult<Products>>(ApiResult.Loading)
     val products: StateFlow<ApiResult<Products>> = _products
 
-    private val _prodOfTheDay = MutableStateFlow<ApiResult<Products>>(ApiResult.Loading)
-    val prodOfTheDay: StateFlow<ApiResult<Products>> = _prodOfTheDay
-
-    private val _bestSellers = MutableStateFlow<ApiResult<Products>>(ApiResult.Loading)
-    val bestSellers: StateFlow<ApiResult<Products>> = _bestSellers
-
-    private val _newProducts = MutableStateFlow<ApiResult<Products>>(ApiResult.Loading)
-    val newProducts: StateFlow<ApiResult<Products>> = _newProducts
-
     private val _articles = MutableStateFlow<List<Article>>(emptyList())
     val articles: StateFlow<List<Article>> = _articles.asStateFlow()
-
-    fun getProdOfTheDay() {
-        viewModelScope.launch {
-            _prodOfTheDay.value = ApiResult.Loading
-            val ids = listOf(123, 136, 78, 80, 100, 105, 161, 159)
-            try {
-                val products = coroutineScope {
-                    ids.map { id ->
-                        async {
-                            productRepository.getProduct(id)
-                        }
-                    }.awaitAll()
-                }
-                _prodOfTheDay.value = ApiResult.Success(
-                    Products(products.toMutableList())
-                )
-            } catch (e: Exception) {
-                _prodOfTheDay.value = ApiResult.Error(e.message)
-            }
-        }
-    }
-
-    fun getBestSellers() {
-        if (_bestSellers.value is ApiResult.Success) return
-        viewModelScope.launch {
-            _bestSellers.value = ApiResult.Loading
-            val ids = listOf(168, 97, 6, 192, 179, 114, 123, 143)
-            try {
-                val products = coroutineScope {
-                    ids.map { id ->
-                        async {
-                            productRepository.getProduct(id)
-                        }
-                    }.awaitAll()
-                }
-                _bestSellers.value = ApiResult.Success(
-                    Products(products.toMutableList())
-                )
-            } catch (e: Exception) {
-                _bestSellers.value = ApiResult.Error(e.message)
-            }
-        }
-    }
-
-    fun getNewProducts() {
-        if (_newProducts.value is ApiResult.Success) return
-        viewModelScope.launch {
-            _newProducts.value = ApiResult.Loading
-            val ids = listOf(79, 45, 163, 103, 157, 52, 133, 113)
-            try {
-                val products = coroutineScope {
-                    ids.map { id ->
-                        async {
-                            productRepository.getProduct(id)
-                        }
-                    }.awaitAll()
-                }
-                _newProducts.value = ApiResult.Success(
-                    Products(products.toMutableList())
-                )
-            } catch (e: Exception) {
-                _newProducts.value = ApiResult.Error(e.message)
-            }
-        }
-    }
 
     fun getArticles() {
         if (_articles.value.isNotEmpty()) return
@@ -131,10 +62,52 @@ class ProductsViewModel @Inject constructor(
         }
     }
 
+    fun getUiState() {
+        if (_uiSate.value is ApiResult.Success) return
+        viewModelScope.launch {
+            val idsProductsOfDay = listOf(123, 136, 78, 80, 100, 105, 161, 159)
+            val idsBestSellers = listOf(168, 97, 6, 192, 179, 114, 123, 143)
+            val idsNewProducts = listOf(79, 45, 163, 103, 157, 52, 133, 113)
+            viewModelScope.launch {
+                _uiSate.value = ApiResult.Loading
+                try {
+                    val productsOfDay = coroutineScope {
+                        idsProductsOfDay.map { id ->
+                            async {
+                                productRepository.getProduct(id)
+                            }
+                        }.awaitAll()
+                    }
+                    val bestSellers = coroutineScope {
+                        idsBestSellers.map { id ->
+                            async {
+                                productRepository.getProduct(id)
+                            }
+                        }.awaitAll()
+                    }
+                    val newProducts = coroutineScope {
+                        idsNewProducts.map { id ->
+                            async {
+                                productRepository.getProduct(id)
+                            }
+                        }.awaitAll()
+                    }
+                    _uiSate.value = ApiResult.Success(
+                        data = MainUiState(
+                            godsOfTheDay = Products(productsOfDay.toMutableList()),
+                            popularGods = Products(bestSellers.toMutableList()),
+                            newGods = Products(newProducts.toMutableList())
+                        )
+                    )
+                } catch (e: Exception) {
+                    _uiSate.value = ApiResult.Error(e.message)
+                }
+            }
+        }
+    }
+
     init {
-        getProdOfTheDay()
-        getBestSellers()
-        getNewProducts()
         getArticles()
+        getUiState()
     }
 }

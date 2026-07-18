@@ -3,6 +3,7 @@ package com.example.dummystore.ui.screens.main.article
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
@@ -35,7 +36,7 @@ fun ArticleCard(
                 painter = painterResource(article.image),
                 contentDescription = null,
                 contentScale = ContentScale.FillWidth,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth().height(120.dp)
             )
             Text(
                 modifier = Modifier.padding(horizontal = 2.dp),
