@@ -8,7 +8,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -16,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -26,13 +30,16 @@ import com.example.dummystore.data.Product
 import com.example.dummystore.data.Products
 import com.example.dummystore.data.Review
 import com.example.dummystore.ui.screens.main.article.ArticleCard
+import com.example.dummystore.ui.screens.navigation.Destinations
+import com.example.dummystore.ui.screens.navigation.MainTopAppBar
 import com.example.dummystore.ui.theme.DummyStoreTheme
 
 @Composable
 fun StartScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
-    viewmodel: ProductsViewModel
+    viewmodel: ProductsViewModel,
+    onClickCatalog: () -> Unit
 ) {
     val prodOfTheDay by viewmodel.prodOfTheDay.collectAsState()
     val bestSellers by viewmodel.bestSellers.collectAsState()
@@ -41,8 +48,8 @@ fun StartScreen(
 
     Column(
         modifier = modifier
-            .padding()
             .fillMaxSize()
+            .padding(horizontal = 5.dp)
             .verticalScroll(rememberScrollState())
     ) {
         when (prodOfTheDay) {
@@ -56,7 +63,7 @@ fun StartScreen(
                 val products = (prodOfTheDay as ApiResult.Success<Products>).data.products
                 PartOfScreen(
                     products = products,
-                    type = "Товары дня",
+                    type = "Products of the Day",
                     onClick = {
                         navController.navigate("productDetail/$it")
                     }
@@ -74,7 +81,7 @@ fun StartScreen(
                 val products = (bestSellers as ApiResult.Success<Products>).data.products
                 PartOfScreen(
                     products = products,
-                    type = "Популярные товары",
+                    type = "Popular products",
                     onClick = {
                         navController.navigate("productDetail/$it")
                     }
@@ -92,7 +99,7 @@ fun StartScreen(
                 val products = (newProducts as ApiResult.Success<Products>).data.products
                 PartOfScreen(
                     products = products,
-                    type = "Новое поступление!",
+                    type = "New stock in!",
                     onClick = {
                         navController.navigate("productDetail/$it")
                     }
@@ -135,8 +142,10 @@ fun StartScreen(
                 }
             }
         }
+        MoveToCatalog(onClickCatalog)
     }
 }
+
 
 @Composable
 fun PartOfScreen(
@@ -168,6 +177,43 @@ fun PartOfScreen(
                     }
                 )
             }
+        }
+    }
+}
+
+@Composable
+fun MoveToCatalog(
+    onClick: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 40.dp)
+    ) {
+        Text(
+            modifier = Modifier
+                .fillMaxWidth(),
+            text = "That is far from all!",
+            textAlign = TextAlign.Center,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center,
+            text = "A huge range of products in our catalog!"
+        )
+        Button(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp),
+            onClick = onClick,
+            shape = RoundedCornerShape(5.dp)
+        ) {
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+                text = "Go to the catalog!"
+            )
         }
     }
 }

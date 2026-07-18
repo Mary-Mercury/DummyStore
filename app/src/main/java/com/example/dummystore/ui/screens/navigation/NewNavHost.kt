@@ -19,32 +19,32 @@ import com.example.dummystore.ui.screens.categories.CategoriesViewModel
 import com.example.dummystore.ui.screens.main.ProductsViewModel
 import com.example.dummystore.ui.screens.main.StartScreen
 import com.example.dummystore.ui.screens.main.article.ArticleScreen
-import com.example.dummystore.ui.screens.others.OthersNav
+import com.example.dummystore.ui.screens.others.AuthScreen
+import com.example.dummystore.ui.screens.others.OtherScreen
 import com.example.dummystore.ui.screens.productDetail.ProductDetail
 import com.example.dummystore.ui.screens.productDetail.ProductDetailViewModel
-import com.example.dummystore.ui.screens.productsbycategories.ProductByCategoriesScreen
+import com.example.dummystore.ui.screens.categories.ProductByCategoriesScreen
 
 @Composable
 fun NestedNavigation(
     navController: NavHostController,
     startDestination: Destinations,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
 ) {
     NavHost(
         navController = navController,
         startDestination = startDestination.route,
         modifier = modifier
     ) {
-        homeGraph(navController)
+        homeGraph(navController, onClick)
         categoriesGraph(navController)
 
         composable(Destinations.CART.route) {
             CartScreen()
         }
 
-        composable(Destinations.OTHERS.route) {
-            OthersNav()
-        }
+        othersGraph(navController)
 
         composable(
             route = "productDetail/{productId}",
@@ -60,6 +60,23 @@ fun NestedNavigation(
             val productId = backStackEntry.arguments?.getInt("productId") ?: return@composable
             val viewModel = hiltViewModel<ProductDetailViewModel>()
             ProductDetail(productId = productId, viewModel = viewModel, navController = navController)
+        }
+    }
+}
+
+fun NavGraphBuilder.othersGraph(
+    navController: NavHostController
+) {
+    navigation(
+        startDestination = "others",
+        route = Destinations.OTHERS.route
+    ) {
+        composable(route = "others") {
+            OtherScreen(navController)
+        }
+
+        composable(route = "auth") {
+            AuthScreen(navController)
         }
     }
 }
@@ -103,7 +120,8 @@ fun NavGraphBuilder.categoriesGraph(
 }
 
 fun NavGraphBuilder.homeGraph(
-    navController: NavHostController
+    navController: NavHostController,
+    onClick: () -> Unit
 ) {
     navigation(
         startDestination = "main_screen",
@@ -117,7 +135,8 @@ fun NavGraphBuilder.homeGraph(
 
             StartScreen(
                 navController = navController,
-                viewmodel = parentViewModel
+                viewmodel = parentViewModel,
+                onClickCatalog = onClick
             )
         }
 

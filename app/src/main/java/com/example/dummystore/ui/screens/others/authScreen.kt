@@ -24,7 +24,7 @@ import androidx.navigation.NavController
 @Composable
 fun AuthScreen(
     navController: NavController,
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
     var userLogin by remember { mutableStateOf("") }
     var userPassword by remember { mutableStateOf("") }

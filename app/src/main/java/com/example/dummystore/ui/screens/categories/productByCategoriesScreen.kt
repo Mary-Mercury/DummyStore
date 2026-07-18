@@ -1,4 +1,4 @@
-package com.example.dummystore.ui.screens.productsbycategories
+package com.example.dummystore.ui.screens.categories
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -16,7 +16,6 @@ import com.example.dummystore.data.Products
 import com.example.dummystore.ui.screens.ErrorScreen
 import com.example.dummystore.ui.screens.LoadingScreen
 import com.example.dummystore.ui.screens.ProductCard
-import com.example.dummystore.ui.screens.categories.CategoriesViewModel
 
 @Composable
 fun ProductByCategoriesScreen(
