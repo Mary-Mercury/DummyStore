@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Card
@@ -31,6 +33,7 @@ import com.example.dummystore.data.Meta
 import com.example.dummystore.data.Product
 import com.example.dummystore.data.Review
 import com.example.dummystore.ui.theme.DummyStoreTheme
+import kotlin.math.min
 
 @Composable
 fun MainProductCard(
@@ -49,7 +52,8 @@ fun MainProductCard(
             ) {
                 Text(
                     fontSize = 12.sp,
-                    text = product.title
+                    text = product.title,
+                    minLines = 2
                 )
                 Text(
                     fontSize = 12.sp,
@@ -61,15 +65,22 @@ fun MainProductCard(
                 ) {
                     OutlinedIconButton(
                         onClick = {},
-                        modifier = Modifier.size(35.dp)
+                        modifier = Modifier.size(35.dp),
+                        shape = RoundedCornerShape(5.dp)
                     ) {
-                        Icon(Icons.Default.ShoppingCart, "")
+                        Icon(
+                            imageVector = Icons.Default.ShoppingCart,
+                            contentDescription = "")
                     }
                     OutlinedIconButton(
                         onClick = {},
-                        modifier = Modifier.size(35.dp)
+                        modifier = Modifier.size(35.dp),
+                        shape = RoundedCornerShape(5.dp)
+
                     ) {
-                        Icon(Icons.Default.Star, "")
+                        Icon(
+                            imageVector = Icons.Default.Favorite,
+                            contentDescription =  "")
                     }
                 }
             }

@@ -55,7 +55,13 @@ fun StartScreen(
     ) {
         when(uiState) {
             is ApiResult.Error -> {
-                Text(text = "Error")
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(text = "Error")
+                }
             }
             ApiResult.Loading -> {
                 Column(
@@ -79,14 +85,14 @@ fun StartScreen(
                 )
                 PartOfScreen(
                     products = popularGods,
-                    type = "Products of the Day",
+                    type = "Popular products",
                     onClick = {
                         navController.navigate("productDetail/$it")
                     }
                 )
                 PartOfScreen(
                     products = newGods,
-                    type = "Products of the Day",
+                    type = "New products!",
                     onClick = {
                         navController.navigate("productDetail/$it")
                     }

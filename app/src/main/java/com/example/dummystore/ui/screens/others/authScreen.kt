@@ -44,7 +44,8 @@ fun AuthScreen(
                 modifier = Modifier.weight(1f).padding(5.dp),
                 onClick = {
                     //Просто заглушка
-                }
+                },
+                enabled = false
             ) {
                 Text(
                     text = "login by ID"
