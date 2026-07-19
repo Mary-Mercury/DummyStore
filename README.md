@@ -41,7 +41,7 @@
 
 # Некоторые скриншоты приложения
 
-<img width="19%" height="auto" alt="image" src="https://github.com/user-attachments/assets/6122cece-86f0-4330-b4fc-fa1befb7ee71" />
+<img width="19%" height="auto" alt="image" src="https://github.com/user-attachments/assets/4648ca84-b570-49be-b80c-ef44654f52d8" />
 
 <img width="19%" height="auto" alt="image" src="https://github.com/user-attachments/assets/1f2d024d-5330-472f-9dc5-770dc76a6253" />
 
