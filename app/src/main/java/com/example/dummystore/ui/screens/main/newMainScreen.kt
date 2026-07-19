@@ -1,5 +1,6 @@
 package com.example.dummystore.ui.screens.main
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,6 +12,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -53,10 +55,22 @@ fun StartScreen(
     ) {
         when(uiState) {
             is ApiResult.Error -> {
-
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(text = "Error")
+                }
             }
             ApiResult.Loading -> {
-
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    CircularProgressIndicator()
+                }
             }
             is ApiResult.Success<*> -> {
                 val godsOfTheDay = (uiState as ApiResult.Success<MainUiState>).data.godsOfTheDay.products
@@ -71,39 +85,24 @@ fun StartScreen(
                 )
                 PartOfScreen(
                     products = popularGods,
-                    type = "Products of the Day",
+                    type = "Popular products",
                     onClick = {
                         navController.navigate("productDetail/$it")
                     }
                 )
                 PartOfScreen(
                     products = newGods,
-                    type = "Products of the Day",
+                    type = "New products!",
                     onClick = {
                         navController.navigate("productDetail/$it")
                     }
                 )
-            }
-        }
-        when (uiState) {
-            is ApiResult.Error -> {
-            }
-
-            ApiResult.Loading -> {
-            }
-
-            is ApiResult.Success<*> -> {
                 Column {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 10.dp, horizontal = 5.dp)
+                        modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp, horizontal = 5.dp)
                     ) {
-                        Text(
-                            text = "Our articles!",
-                            fontWeight = FontWeight.Bold
-                        )
+                        Text(text = "Our articles!", fontWeight = FontWeight.Bold)
                     }
                     LazyRow(
                         modifier = Modifier.fillMaxWidth()
@@ -111,9 +110,7 @@ fun StartScreen(
                         items(items = articles) { article ->
                             ArticleCard(
                                 article = article,
-                                onClick = {
-                                    navController.navigate("article_screen/${article.id}")
-                                }
+                                onClick = { navController.navigate("article_screen/${article.id}") }
                             )
                         }
                     }
