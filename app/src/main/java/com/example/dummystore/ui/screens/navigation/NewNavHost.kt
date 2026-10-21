@@ -38,24 +38,17 @@ fun NestedNavigation(
         modifier = modifier
     ) {
         homeGraph(navController, onClick)
+
         categoriesGraph(navController)
 
-        composable(Destinations.CART.route) {
-            CartScreen()
-        }
+        composable(Destinations.CART.route) { CartScreen() }
 
         othersGraph(navController)
 
         composable(
             route = "productDetail/{productId}",
-            arguments = listOf(
-                navArgument("productId") { type = NavType.IntType }
-            ),
-            deepLinks = listOf(
-                navDeepLink {
-                    uriPattern = "https://dummyjson.com/products/{productId}"
-                }
-            )
+            arguments = listOf(navArgument("productId") { type = NavType.IntType }),
+            deepLinks = listOf(navDeepLink { uriPattern = "https://dummyjson.com/products/{productId}" } )
         ) { backStackEntry ->
             val productId = backStackEntry.arguments?.getInt("productId") ?: return@composable
             val viewModel = hiltViewModel<ProductDetailViewModel>()
